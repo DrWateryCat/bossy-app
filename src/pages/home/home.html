@@ -1,14 +1,22 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Bossy
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+  <ion-list [(ngModel)]="taskList" ngDefaultControl>
+    <button ion-item *ngFor="let todo of tasks" (click)="taskClick(todo.id)">
+      <task title="{{todo.title}}" desc="{{todo.desc}}"></task>
+    </button>
+  </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab [navPush]='addTaskPage'><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
